@@ -1,0 +1,32 @@
+
+CREATE TABLE location (
+        locationid INT NOT NULL AUTO_INCREMENT,
+        locationName VARCHAR(30) NOT NULL,
+        PRIMARY KEY (locationid)
+    );
+
+INSERT INTO location values (default, 'first location');
+INSERT INTO location values (default, 'second location');
+INSERT INTO location values (default, 'third location');
+INSERT INTO location values (default, 'forth location');
+INSERT INTO location values (default, 'fifth location');
+
+
+CREATE TABLE dragon (
+        dragonid INT NOT NULL AUTO_INCREMENT,
+        dragonName VARCHAR(100) NOT NULL,
+        Color VARCHAR(50) NOT NULL,
+        Favoratefood VARCHAR(150) NOT NULL,
+	locationNo int not null,
+        PRIMARY KEY (dragonid),
+	CONSTRAINT fk_location
+    	FOREIGN KEY (locationNo) 
+        REFERENCES location(locationid)
+    );
+
+
+INSERT INTO dragon values (default, 'Drake', 'black', 'mansaf', 1);
+INSERT INTO dragon values (default, 'Brantley', 'Red', 'pizza', 2);
+INSERT INTO dragon values (default, 'Tatsuya', 'Green', 'pasta', 3);
+INSERT INTO dragon values (default, 'Pachua', 'Blue', 'burger', 4);
+INSERT INTO dragon values (default, 'Blaze', 'Yellow', 'shawerma', 5);

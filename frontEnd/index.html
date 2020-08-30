@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="javascript/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="css/style.css"></link>
+<script src="locations.js"></script>
+<script src="dragons.js"></script>
+
+</head>
+<body>
+
+<h1>Zoo Admin screen</h1>
+
+
+
+<h3> Add a location from here:</h3>
+
+
+<ul id = "locations_list">
+</ul>
+
+<input id="newLocation" type="text" name="newLocation"/>
+<button id="addLocation"> Add</button>
+
+<h3>Dragons Details:</h3>
+
+<div id="dragons">
+</div>
+
+</body>
+
+<script type="text/javascript">
+	
+$( document ).ready(function() {
+    console.log( "ready!" );
+
+// $.get('http://localhost:8080/Assignment/api/locations', function(data) {
+	// var locations = data;
+	// popuateLocations(locations);
+// });
+popuateLocations(locations);
+popuateDragons(dragons);
+
+addLocationListener();
+
+});
+
+function addLocationListener()
+{
+	$("#addLocation").click(function(){
+	var newLocationName = $("#newLocation").val();
+	console.log(newLocationName + " Location added");
+	locations.push({
+    "id": Math.floor(Math.random() * 100 + 10),
+    "name": newLocationName
+  });
+	$("#newLocation").val("");
+	popuateLocations(locations);
+});
+}
+
+function popuateLocations(locations)
+{
+
+	$('#locations_list').empty();
+	for(var i =0; i<locations.length; i++)
+	{
+		$('<li />', {
+	    text: locations[i].name,
+	    id: '' + locations.id
+		}).appendTo("#locations_list");
+	}
+
+}
+
+function popuateDragons(dragons)
+{
+
+	for(var i =0; i<dragons.length; i++)
+	 {
+		var dragonElement = '<div id="' + dragons[i].id + '" class="dragon"><p><b>' + dragons[i].name + '</b> </br></br> Color: ' + dragons[i].color 
+  	+ '</br> </br>Favorate food: ' + dragons[i].favorateFood + '</p><input id="input' + dragons[i].id + '" type="text" value="' + dragons[i].locationName +'"><button id="' + dragons[i].id 
+  	+ '" class="updateLocation">update</button></div>'; 
+
+  	$("#dragons").append(dragonElement);
+	 }
+
+	 $(".updateLocation").click(function(e){
+	 	var updatedLocation = $("#input" + e.target.id).val();
+	 	console.log(updatedLocation + "dragon index: " + e.target.id);
+	 });
+
+}
+
+
+</script>
+</html>
